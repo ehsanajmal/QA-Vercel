@@ -3,7 +3,7 @@
 const question = require("../../../../models/question");
 const connectToDatabase = require("../../../../../config/index");
 
-async function handler(req, res) {
+exports.handler = async (req, res) => {
   try {
     await connectToDatabase();
     if (req.body.name === "" || req.body.name.length > 1000) {
@@ -44,6 +44,21 @@ async function handler(req, res) {
       data: error.message,
     });
   }
-}
+};
 
-module.exports = handler;
+exports.getAllQuestions = async (req, res) => {
+  try {
+    const questions = await question.find();
+    return res.json({
+      status: true,
+      msg: "All Questions Retrieved",
+      data: questions,
+    });
+  } catch (error) {
+    return res.json({
+      status: false,
+      msg: "Something Went Wrong, Try again.....",
+      data: error.message,
+    });
+  }
+};

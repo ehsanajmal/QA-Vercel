@@ -3,7 +3,7 @@ const answer = require("../../../../models/answer");
 const multiAnswer = require("../../../../models/multiAnswer");
 const connectToDatabase = require("../../../../../config/index");
 
-async function handler(req, res) {
+exports.handler = async (req, res) => {
   try {
     await connectToDatabase();
     for (let i = 0; i < req.body.length; i++) {
@@ -48,6 +48,21 @@ async function handler(req, res) {
       data: error.message,
     });
   }
-}
+};
 
-module.exports = handler;
+exports.getAllAnswers = async (req, res) => {
+  try {
+    const answers = await answer.find();
+    return res.json({
+      status: true,
+      msg: "All Answers Retrieved",
+      data: answers,
+    });
+  } catch (error) {
+    return res.json({
+      status: false,
+      msg: "Something Went Wrong, Try again.....",
+      data: error.message,
+    });
+  }
+};

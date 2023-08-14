@@ -2,7 +2,7 @@
 const typesOff = require("../../../../models/typesOff");
 const connectToDatabase = require("../../../../../config/index");
 
-async function handler(req, res) {
+exports.handler = async (req, res) => {
   try {
     await connectToDatabase();
     if (req.body.name === "" || req.body.name.length > 1000) {
@@ -25,6 +25,17 @@ async function handler(req, res) {
       data: error.message,
     });
   }
-}
+};
 
-module.exports = handler;
+exports.getAllTypes = async (req, res) => {
+  try {
+    const types = await typesOff.find();
+    return res.json({ status: true, msg: "All Types Retrieved", data: types });
+  } catch (error) {
+    return res.json({
+      status: false,
+      msg: "Something Went Wrong, Try again.....",
+      data: error.message,
+    });
+  }
+};
