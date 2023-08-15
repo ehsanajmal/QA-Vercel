@@ -13,13 +13,7 @@ exports.handler = async (req, res) => {
         data: null,
       });
     }
-    if (req.body.type === "" || req.body.type.length > 1000) {
-      return res.json({
-        status: false,
-        msg: "Invalid Question Type",
-        data: null,
-      });
-    }
+   
     if (req.body.categoryId === "" || req.body.categoryId.length > 1000) {
       return res.json({
         status: false,

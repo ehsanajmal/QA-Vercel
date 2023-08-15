@@ -12,10 +12,7 @@ const question = mongoose.Schema(
       required: [true, "name is required"],
       unique: true,
     },
-    type: {
-      type: String,
-      required: [true, "Question type is required"],
-    },
+   
   },
   {
     timestamps: true,
